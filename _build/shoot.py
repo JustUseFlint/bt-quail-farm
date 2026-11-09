@@ -3,7 +3,7 @@ from playwright.async_api import async_playwright
 BASE = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] else 'http://localhost:8822/bt-quail-farm/'
 OUT = sys.argv[2] if len(sys.argv) > 2 and sys.argv[2] else '/workspace/bt-quail/site/shots/'
 ONLY = sys.argv[3].split(',') if len(sys.argv) > 3 and sys.argv[3] else None
-PAGES = ['', 'birds/', 'process/', 'gallery/', 'about/', 'contact/', '404.html']
+PAGES = ['', 'birds/', 'about/', 'contact/', '404.html']
 VPS = [('m', 393, 852, 3), ('d', 1440, 900, 1)]
 async def run():
     async with async_playwright() as p:

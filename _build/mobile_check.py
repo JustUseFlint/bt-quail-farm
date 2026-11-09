@@ -4,7 +4,7 @@ and at the end that no reveal content is stuck invisible."""
 import asyncio, sys, json
 from playwright.async_api import async_playwright
 BASE = sys.argv[1] if len(sys.argv) > 1 else 'http://localhost:8822/bt-quail-farm/'
-PAGES = ['', 'birds/', 'process/', 'gallery/', 'about/', 'contact/', '404.html']
+PAGES = ['', 'birds/', 'about/', 'contact/', '404.html']
 if len(sys.argv) > 2 and sys.argv[2]: PAGES = [p if p != 'home' else '' for p in sys.argv[2].split(',')]
 WIDTHS = [375, 393, 430]
 ENGINES = sys.argv[3].split(',') if len(sys.argv) > 3 else ['webkit', 'chromium']

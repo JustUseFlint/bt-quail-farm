@@ -2,7 +2,7 @@
 import asyncio, sys, os, shutil
 from playwright.async_api import async_playwright
 BASE = sys.argv[1]; OUT = sys.argv[2]; os.makedirs(OUT, exist_ok=True)
-PAGES = [('home', ''), ('birds', 'birds/'), ('process', 'process/'), ('contact', 'contact/')]
+PAGES = [('home', ''), ('birds', 'birds/'), ('about', 'about/'), ('contact', 'contact/')]
 STUCK = open(os.path.join(os.path.dirname(__file__), 'mobile_check.py')).read().split("STUCK = r'''")[1].split("'''")[0]
 async def run():
     async with async_playwright() as p:
@@ -26,7 +26,7 @@ async def run():
             print(name, 'stuck', st, 'errs', errs, dst)
         # jump test
         ctx = await br.new_context(**dev)
-        for name, path in PAGES + [('about', 'about/'), ('gallery', 'gallery/')]:
+        for name, path in PAGES:
             pg = await ctx.new_page(); await pg.goto(BASE + path, wait_until='networkidle'); await pg.wait_for_timeout(400)
             await pg.evaluate('window.scrollTo(0, document.documentElement.scrollHeight)'); await pg.wait_for_timeout(2600)
             st = await pg.evaluate(STUCK); print('jump', name, 'stuck', st); await pg.close()

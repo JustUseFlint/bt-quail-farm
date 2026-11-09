@@ -19,7 +19,7 @@ async def run():
         await pg.goto(BASE, wait_until='networkidle'); await pg.wait_for_timeout(1500)
         await pg.click('[data-menubtn]'); await pg.wait_for_timeout(1300); await pg.screenshot(path=OUT+'func-menu-m.png')
         r['menuOpen'] = await pg.is_visible('#menu')
-        await pg.click('.menu-nav a:has-text("Gallery")'); await pg.wait_for_timeout(2500)
+        await pg.click('.menu-nav a:has-text("About")'); await pg.wait_for_timeout(2500)
         r['navUrl'] = pg.url
         await pg.screenshot(path=OUT+'func-after-nav-m.png')
         # call popover
@@ -28,21 +28,10 @@ async def run():
         await ctx.close()
         ctx = await b.new_context(viewport={'width': 1440, 'height': 900})
         pg = await ctx.new_page(); errs=[]; pg.on('pageerror', lambda e: errs.append(str(e)))
-        await pg.goto(BASE + 'gallery/', wait_until='networkidle'); await pg.wait_for_timeout(2000)
-        await pg.click('[data-filter="Birds"]'); await pg.wait_for_timeout(500)
-        r['birdsShown'] = await pg.locator('.gi:not([hidden])').count()
-        await pg.click('[data-filter="All"]'); await pg.click('.tog'); await pg.wait_for_timeout(500)
-        await pg.click('[data-lb="1"]'); await pg.wait_for_timeout(900); await pg.screenshot(path=OUT+'func-lightbox-d.png')
-        r['lbSrc'] = await pg.get_attribute('[data-lb-img]', 'src')
-        await pg.keyboard.press('ArrowRight'); await pg.wait_for_timeout(400); r['lbCap2'] = await pg.text_content('[data-lb-cap]')
-        await pg.keyboard.press('Escape'); r['lbClosed'] = not await pg.is_visible('[data-lbox]')
         await pg.goto(BASE + 'birds/#population', wait_until='networkidle'); await pg.wait_for_timeout(2000)
         r['popTabSel'] = await pg.get_attribute('#t-population', 'aria-selected')
         await pg.click('.ck >> nth=7'); r['ckSaved'] = await pg.evaluate('Object.keys(localStorage).filter(k=>k.startsWith("bt-ck")).length')
         await pg.screenshot(path=OUT+'func-birds-pop-d.png')
-        await pg.goto(BASE + 'process/', wait_until='networkidle'); await pg.wait_for_timeout(1500)
-        await pg.fill('[data-calc-in]', '2026-08-01'); await pg.wait_for_timeout(300)
-        r['calc'] = [await pg.text_content('[data-calc-w]'), await pg.text_content('[data-calc-s]'), await pg.text_content('[data-calc-16]')]
         await pg.goto(BASE, wait_until='networkidle'); await pg.wait_for_timeout(1500)
         await pg.click('.bar-nav a:has-text("About")'); await pg.wait_for_timeout(450); await pg.screenshot(path=OUT+'func-transition-d.png'); await pg.wait_for_timeout(2500); r['navUrl2']=pg.url
         r['errs_d']=errs

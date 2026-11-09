@@ -1,4 +1,4 @@
-import { BASE, CHECKED, FB, PEOPLE, DIMS, V, SRC } from './data.mjs';
+import { BASE, FB, PEOPLE, DIMS, V, SRC } from './data.mjs';
 export const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 // deterministic grass silhouette
@@ -55,7 +55,7 @@ export const src = (k, label) => `<a class="src" href="${SRC[k][1]}" target="_bl
 export const smsHref = (p, body = '') => `sms:${p.e164}${body ? `?&body=${encodeURIComponent(body)}` : ''}`;
 export const telHref = p => `tel:${p.e164}`;
 
-const NAV = [['Birds', 'birds/'], ['Process', 'process/'], ['Gallery', 'gallery/'], ['About', 'about/']];
+const NAV = [['Birds', 'birds/'], ['About', 'about/']];
 const FONTS = 'https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap';
 
 export function head({ root, title, desc, path = '' }) {
@@ -75,7 +75,7 @@ export function head({ root, title, desc, path = '' }) {
 <link rel="icon" href="${root}assets/img/favicon.png" type="image/png"><link rel="apple-touch-icon" href="${root}assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${FONTS}">
-<link rel="stylesheet" href="${root}assets/css/site.css?v=20261109b">
+<link rel="stylesheet" href="${root}assets/css/site.css?v=20261109c">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"B & T Quail Farm","description":"Flight ready quail for dog training or population purposes.","telephone":"+1-765-246-1964","areaServed":"Putnam County, Indiana","address":{"@type":"PostalAddress","addressRegion":"IN","addressCountry":"US"},"sameAs":["${FB}"]}</script>
 <script>(function(d,w){var h=d.documentElement;h.className=h.className.replace('no-js','js');var rm=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!rm){h.classList.add('motion');try{if(sessionStorage.getItem('bt-pt')==='1')h.classList.add('pt-in')}catch(e){}}else{h.classList.add('no-motion')}setTimeout(function(){if(!w.__btReady){h.classList.remove('motion','pt-in');h.classList.add('no-motion')}},4500)})(document,window)</script>
 </head>`;
@@ -86,9 +86,7 @@ export { personRow };
 
 export function chrome(root, path) {
   const cur = p => (path.startsWith(p) ? ' aria-current="page"' : '');
-  const blades = Array.from({ length: 22 }, (_, i) => `<i style="--i:${i}"></i>`).join('');
   return `${SPRITE}
-<div class="sweep" aria-hidden="true"><div class="sweep-b">${blades}</div><svg class="sweep-badge"><use href="#badge"/></svg></div>
 <a class="skip" href="#main">Skip to content</a>
 <header class="bar" data-bar>
   <a class="bar-home" href="${root}" aria-label="B &amp; T Quail Farm, home"><svg class="bar-badge" aria-hidden="true"><use href="#badge"/></svg><span class="bar-name"><b>B&amp;T</b> Quail Farm</span></a>
@@ -102,7 +100,7 @@ export function chrome(root, path) {
 <div class="callpop" id="callpop" role="dialog" aria-label="Call or text the farm" hidden>
   <p class="eb">Call or text for more details</p>
   ${PEOPLE.map(p => personRow(p)).join('')}
-  <p class="callpop-note">Putnam County, Indiana · no storefront hours are posted, so a text is the easy way in.</p>
+  <p class="callpop-note">Putnam County, Indiana · a text is the quickest way to reach the farm.</p>
 </div>
 <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
   <div class="menu-in">
@@ -123,11 +121,11 @@ export function footer(root) {
     </div>
     <div class="ft-cols">
       <div><p class="eb">Call or text</p>${PEOPLE.map(p => `<p class="ft-p"><span>${p.name}</span> <a href="${telHref(p)}">${p.phone}</a> · <a href="${smsHref(p)}">Text</a></p>`).join('')}</div>
-      <div><p class="eb">Where</p><p>Putnam County, Indiana</p><p class="ft-dim">No street address is published</p></div>
-      <div><p class="eb">Pages</p><nav class="ft-nav" aria-label="Footer">${[...NAV, ['Contact', 'contact/']].map(([t, h]) => `<a href="${root}${h}">${t}</a>`).join('')}</nav></div>
+      <div><p class="eb">Where</p><p>Putnam County, Indiana</p><p class="ft-dim">Call or text to arrange pickup</p></div>
+      <div><p class="eb">Pages</p><nav class="ft-nav" aria-label="Footer">${[['Home', ''], ...NAV, ['Contact', 'contact/']].map(([t, h]) => `<a href="${root}${h}">${t}</a>`).join('')}</nav></div>
       <div><p class="eb">Follow</p><p><a href="${FB}" target="_blank" rel="noopener">Facebook${use('i-ext', 'i')}</a></p><p class="ft-dim">56K followers</p></div>
     </div>
-    <div class="ft-base"><span>Concept site · details checked ${CHECKED}</span><span>Photos &amp; artwork from the B &amp; T Quail Farm Facebook page</span><span>Messages open in your own phone app. This site sends nothing.</span></div>
+    <div class="ft-base"><span>© 2026 B &amp; T Quail Farm</span><span>Flight ready quail · Putnam County, Indiana</span></div>
   </div>
 </footer>`;
 }
@@ -147,7 +145,7 @@ ${footer(root)}
 <script src="${root}assets/vendor/MotionPathPlugin.min.js" defer></script>
 <script src="${root}assets/vendor/DrawSVGPlugin.min.js" defer></script>
 <script src="${root}assets/vendor/lenis.min.js" defer></script>
-<script src="${root}assets/js/site.js?v=20261109b" defer></script>
+<script src="${root}assets/js/site.js?v=20261109c" defer></script>
 </body>
 </html>
 `;

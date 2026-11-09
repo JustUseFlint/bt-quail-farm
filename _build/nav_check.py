@@ -10,7 +10,7 @@ async def run():
             pg = await ctx.new_page(); errs = []
             pg.on('pageerror', lambda e: errs.append(str(e)))
             await pg.goto(BASE, wait_until='networkidle'); await pg.wait_for_timeout(1500)
-            st = lambda: pg.evaluate("({sweep:getComputedStyle(document.querySelector('.sweep')).visibility, pt:document.documentElement.classList.contains('pt-in'), url:location.pathname, lenis:document.documentElement.classList.contains('lenis'), touch:document.documentElement.classList.contains('is-touch')})")
+            st = lambda: pg.evaluate("({leaving:document.documentElement.classList.contains('is-leaving'), mainOp:getComputedStyle(document.querySelector('main')).opacity, menuOpen:!document.querySelector('#menu').hidden, pt:document.documentElement.classList.contains('pt-in'), url:location.pathname, lenis:document.documentElement.classList.contains('lenis'), touch:document.documentElement.classList.contains('is-touch')})")
             print(eng, dev or 'desktop', 'home', await st())
             if dev:
                 await pg.click('[data-menubtn]'); await pg.wait_for_timeout(900); await pg.click('#menu a[href*="birds"]')

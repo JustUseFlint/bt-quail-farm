@@ -1,8 +1,8 @@
-import { PEOPLE, FB, SRC, CHECKED } from './data.mjs';
+import { PEOPLE, FB, SRC } from './data.mjs';
 import { page, img, btn, eb, src, use, arr, grassSvg, smsHref, telHref, personRow, esc } from './shell.mjs';
 
 const [ETHAN, TREVOR] = PEOPLE;
-const INTRO = 'B&T Quail Farm is proud to offer quality flight ready birds! Hatched and raised with the upmost care our birds are readily available for dog training or population purposes! Call or text for more details';
+const INTRO = 'B&T Quail Farm is proud to offer quality flight ready birds! Hatched and raised with the utmost care, our birds are readily available for dog training or population purposes! Call or text for more details';
 const pic = (root, n, alt, cap, { cls = '', fig = '' } = {}) => `<figure class="print ${cls}" data-wipe>${fig ? `<span class="print-fig">${fig}</span>` : ''}<div class="print-im">${img(root, n, alt)}</div>${cap ? `<figcaption>${cap}</figcaption>` : ''}</figure>`;
 const ppl = (cls = '') => `<div class="ppl ${cls}">${PEOPLE.map(p => `<article class="person" data-reveal>
   <p class="eb">Call or text</p><h3 class="person-n">${p.name}</h3><a class="person-ph" href="${telHref(p)}">${p.phone}</a>
@@ -43,9 +43,9 @@ function home() {
 </section>
 
 <section class="intro">
-  <div class="intro-side">${eb('In the farm’s words')}<p class="intro-src">From the B &amp; T Quail Farm Facebook page</p></div>
+  <div class="intro-side">${eb('B &amp; T Quail Farm')}<p class="intro-src">Putnam County, Indiana</p></div>
   <div>
-    <p class="intro-q" data-fill>“${esc(INTRO)}.”</p>
+    <p class="intro-q" data-fill>${esc(INTRO)}.</p>
     <div class="intro-ppl">${PEOPLE.map(p => `<a class="tag" href="${telHref(p)}" data-magnetic><b>${p.name}</b> ${p.phone}</a>`).join('')}</div>
   </div>
 </section>
@@ -56,7 +56,7 @@ function home() {
       ${eb('What “flight ready” means')}
       <h2 class="h2" data-split>From the hatcher<br>to a hard flush.</h2>
       <p class="flush-p" data-reveal>Bobwhite eggs take about 23 days to hatch. Chicks are moved into flight pens at around six weeks, away from people and dogs, so they grow into strong, wary flyers. Most buyers want them at 12 to 16 weeks.</p>
-      <p class="flush-s" data-reveal>General guidance from ${src('msuInc', 'MSU Extension')}, ${src('ext', 'Extension.org')} and ${src('gundog', 'Gun Dog')}. Ask the farm about its own schedule.</p>
+      <p class="flush-s" data-reveal>Typical bobwhite timelines, per ${src('msuInc', 'MSU Extension')}, ${src('ext', 'Extension.org')} and ${src('gundog', 'Gun Dog')}. Call or text to hear where the current birds are.</p>
     </div>
     <div class="flush-stage" aria-hidden="true">
       <svg class="flush-svg flush-d" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid meet"><defs><mask id="mk-flushD" maskUnits="userSpaceOnUse"><path class="flush-reveal" d="M600 700 C 640 610, 700 560, 800 540 S 980 520, 1060 420 S 1180 220, 1330 170" fill="none" stroke="#fff" stroke-width="14"/></mask></defs><path class="flush-path" id="flushD" d="M600 700 C 640 610, 700 560, 800 540 S 980 520, 1060 420 S 1180 220, 1330 170" fill="none"/><path class="flush-trail" d="M600 700 C 640 610, 700 560, 800 540 S 980 520, 1060 420 S 1180 220, 1330 170" fill="none" mask="url(#mk-flushD)"/></svg>
@@ -73,13 +73,13 @@ function home() {
 <section class="hatch" data-hatch>
   <div class="hatch-in">
     <div class="hatch-copy">
-      ${eb('October 16, 2026 · from the farm’s page')}
+      ${eb('October 16, 2026')}
       <p class="hatch-n" aria-label="4,300"><span data-count>4,300</span></p>
       <p class="hatch-l">eggs moved to the hatchers in one day.</p>
       <blockquote class="hatch-q" data-reveal>“4,300 eggs just moved to the hatchers today. In a couple of days we will have a ton of little fur babies running around.”</blockquote>
       <a class="lnk" href="${FB}" target="_blank" rel="noopener">See the post on Facebook ${use('i-ext', 'i')}</a>
     </div>
-    <div class="hatch-grid"><canvas data-eggs aria-hidden="true"></canvas><p class="hatch-cap">Every dot is one egg, drawn in blocks of 100. Scroll to fill them.</p></div>
+    <div class="hatch-grid"><canvas data-eggs aria-hidden="true"></canvas><p class="hatch-cap">Every dot is one egg, in trays of 100.</p></div>
   </div>
 </section>
 
@@ -98,7 +98,7 @@ function home() {
 </section>
 
 <section class="sheet">
-  <div class="sec-h sec-h-row">${eb('From the farm')}<h2 class="h2" data-split>Hatched, handled, checked.</h2>${btn('gallery/', 'Open the gallery', 'btn-line btn-sm')}</div>
+  <div class="sec-h sec-h-row">${eb('On the farm')}<h2 class="h2" data-split>Hatched, handled, checked.</h2></div>
   <div class="rail" data-rail data-cursor="Drag" tabindex="0" aria-label="Photos from the farm, scroll sideways">
     ${pic(root, 'p-hand-head', 'Close-up of a quail’s head, held in a hand', 'Head check', { fig: 'Fig. 01' })}
     ${pic(root, 'p-trays', 'Blue and red egg trays filled with eggs', 'Setter trays', { fig: 'Fig. 02' })}
@@ -117,7 +117,7 @@ function home() {
 <section class="cta">
   <svg class="cta-feather" aria-hidden="true"><use href="#i-feather"/></svg>
   <h2 class="cta-h" data-chars>Know how many you need?</h2>
-  <p class="cta-p" data-reveal>Pick the use, the count and the timing. The site writes the text for you.</p>
+  <p class="cta-p" data-reveal>Pick the use, the count and the timing, and your text to Ethan or Trevor is ready to send.</p>
   <a class="bigbtn" href="contact/" data-magnetic data-cursor="Start"><span>Build an<br>inquiry</span></a>
 </section>`;
   return page({ root, path: '', id: 'home', title: 'B & T Quail Farm · Flight ready quail · Putnam County, Indiana', desc: 'Flight ready quail, hatched and raised in Putnam County, Indiana, for dog training and population purposes. Call or text Ethan or Trevor.', body });
@@ -128,7 +128,7 @@ function birds() {
   const root = '../';
   const check = (k, t, s, sk) => `<li><label class="ck"><input type="checkbox" data-ck="${k}"><span class="ck-b">${use('i-check', 'i')}</span><span class="ck-t"><b>${t}</b>${s ? `<span>${s}</span>` : ''}</span></label></li>`;
   const body = `
-${pageHead({ n: '01', label: 'The birds', title: 'Flight&nbsp;ready <em>birds</em>', lead: 'Hatched and raised with care, then sent out for two jobs: training dogs and starting populations. The birds in the farm’s photos are bobwhite quail.', aside: `<figure class="oval" data-wipe>${img(root, 'p-hand-head', 'Close-up of a bobwhite quail held in a hand')}</figure>` })}
+${pageHead({ n: '01', label: 'The birds', title: 'Flight&nbsp;ready <em>birds</em>', lead: 'Bobwhite quail, hatched and raised with care for two jobs: training dogs and starting populations.', aside: `<figure class="oval" data-wipe>${img(root, 'p-hand-head', 'Close-up of a bobwhite quail held in a hand')}</figure>` })}
 
 <section class="pick" data-tabs>
   <div class="pick-bar" role="tablist" aria-label="Choose a use">
@@ -150,7 +150,7 @@ ${pageHead({ n: '01', label: 'The birds', title: 'Flight&nbsp;ready <em>birds</e
       </div>
       <div class="pick-list">
         <p class="eb">Training on your own ground in Indiana</p>
-        <p class="pick-note">Indiana asks for a Dog Training Ground Permit to take pen-raised bobwhite while training. Tick off what you have. It saves on this device only.</p>
+        <p class="pick-note">Indiana asks for a Dog Training Ground Permit to take pen-raised bobwhite while training. Tick off what you have; your list is saved on this device.</p>
         <ul class="cks" data-cklist="training">
           ${check('t1', 'A Dog Training Ground Permit', 'From Indiana DNR, Division of Fish &amp; Wildlife.')}
           ${check('t2', '5 to 20 contiguous acres', 'Not within one mile of a state public hunting area.')}
@@ -178,7 +178,7 @@ ${pageHead({ n: '01', label: 'The birds', title: 'Flight&nbsp;ready <em>birds</e
       </div>
       <div class="pick-list">
         <p class="eb">Before you release in Indiana</p>
-        <p class="pick-note">What Indiana DNR says about holding and releasing bobwhite. Tick off as you go. It saves on this device only.</p>
+        <p class="pick-note">What Indiana DNR says about holding and releasing bobwhite. Tick off as you go; your list is saved on this device.</p>
         <ul class="cks" data-cklist="population">
           ${check('p1', 'Permission for the land', 'Bobwhite may be released on property where you have permission.')}
           ${check('p2', 'Healthy birds only', 'Sick or diseased birds may not be released.')}
@@ -195,7 +195,7 @@ ${pageHead({ n: '01', label: 'The birds', title: 'Flight&nbsp;ready <em>birds</e
 <section class="spec">
   <div class="sec-h">${eb('Field notes')}<h2 class="h2" data-split>What to look for in a bird.</h2></div>
   <div class="spec-g">
-    <figure class="spec-plate" data-wipe>${img(root, 'hero-quail-s', 'Illustrated bobwhite quail from the farm’s cover art')}<figcaption>Plate · from the farm’s cover art</figcaption></figure>
+    <figure class="spec-plate" data-wipe>${img(root, 'hero-quail-s', 'Illustrated northern bobwhite quail')}<figcaption>Plate · Northern bobwhite</figcaption></figure>
     <ol class="spec-l">
       <li data-reveal><span>01</span><div><h3>Full feathering</h3><p>Good feathering matters for looks and for flying ability. ${src('ext', 'Extension.org')}</p></div></li>
       <li data-reveal><span>02</span><div><h3>Wary of people</h3><p>Birds raised away from people, pets and traffic respond to an approaching dog like wild birds do. ${src('ext', 'Extension.org')}</p></div></li>
@@ -212,107 +212,11 @@ ${pageHead({ n: '01', label: 'The birds', title: 'Flight&nbsp;ready <em>birds</e
   return page({ root, path: 'birds/', id: 'birds', title: 'Birds · B & T Quail Farm', desc: 'Flight ready bobwhite quail for dog training or population release, with Indiana permit checklists.', body });
 }
 
-/* ---------------- PROCESS ---------------- */
-function process() {
-  const root = '../';
-  const ST = [
-    ['Day 0', 'Set', 'Eggs go into setter trays.', 'p-trays', 'Blue and red setter trays full of eggs', 'farm'],
-    ['Days 1–20', 'Incubate', 'Steady heat and humidity. Turning stops after day 19.', 'p-trays-2', 'Rows of egg trays', 'guide'],
-    ['Day 21', 'To the hatcher', 'Eggs move to the hatcher. On Oct 16, 2026 the farm moved 4,300 at once.', 'p-hatcher-video', 'Still from the farm’s hatcher video, eggs in a basket', 'farm'],
-    ['Day 23', 'Hatch', 'Chicks walk and follow within an hour of hatching.', 'p-hatcher', 'Cabinet incubator with racks', 'guide'],
-    ['Weeks 1–6', 'Brood', 'Warm, dry and uncrowded. The first six weeks decide the rest.', 'p-egg-flats', 'Egg flats on a table', 'guide'],
-    ['Week 6 on', 'Flight pen', 'Room to fly, natural cover, and distance from people and dogs.', 'p-hand-wing', 'A quail with its wing spread', 'guide'],
-    ['Weeks 12–16', 'Flight ready', 'The age most dog trainers and preserves buy.', 'p-hand-profile', 'A bobwhite held upright', 'guide'],
-    ['Your call', 'Pickup', 'Call or text Ethan or Trevor to set a count and a time.', 'p-hand-head', 'Close-up of a quail held in hand', 'farm'],
-  ];
-  const body = `
-${pageHead({ n: '02', label: 'Our process', title: 'Hatchery <em>to field</em>', lead: 'From a tray of eggs to a bird that flushes hard. Here is the path, with the farm’s own photos where they have them.' })}
-
-<section class="tl" data-tl>
-  <div class="tl-pin">
-    <div class="tl-ruler" aria-hidden="true"><span class="tl-fill" data-tl-fill></span></div>
-    <ol class="tl-track" data-tl-track>
-      ${ST.map(([d, t, p, im, alt, who], i) => `<li class="tl-c">
-        <div class="tl-im">${img(root, im, alt)}</div>
-        <div class="tl-b"><p class="tl-d"><span>${String(i + 1).padStart(2, '0')}</span>${d}</p><h3>${t}</h3><p>${p}</p><p class="tl-who tl-${who}">${who === 'farm' ? 'From the farm' : 'General guidance'}</p></div>
-      </li>`).join('')}
-    </ol>
-  </div>
-  <p class="tl-src">Days and weeks are published guidance for bobwhite: ${src('msuInc', 'MSU Extension')}, ${src('msuRaise', 'MSU raising guide')}, ${src('nbgi', 'NBGI')}, ${src('ext', 'Extension.org')}, ${src('gundog', 'Gun Dog')}. The farm’s own schedule may differ.</p>
-</section>
-
-<section class="calc" data-calc>
-  <div class="calc-in">
-    <div class="calc-l">
-      ${eb('Age calculator')}
-      <h2 class="h2" data-split>How old are the birds?</h2>
-      <p>Enter a hatch date and see where a bird is on the path.</p>
-      <label class="fld"><span class="fld-l">Hatch date</span><input type="date" value="2026-10-18" data-calc-in></label>
-      <p class="calc-note">Example date: the Oct 16, 2026 post said chicks were a couple of days away.</p>
-    </div>
-    <div class="calc-r" aria-live="polite">
-      <div class="calc-age"><span class="calc-big" data-calc-w>3</span><span class="calc-u">weeks old</span><span class="calc-days" data-calc-d>22 days</span></div>
-      <div class="calc-bar"><span data-calc-bar></span><i style="--at:${(23 / 135 * 100).toFixed(1)}%"></i><i style="--at:${(42 / 135 * 100).toFixed(1)}%"></i><i style="--at:${(84 / 135 * 100).toFixed(1)}%"></i><i style="--at:${(112 / 135 * 100).toFixed(1)}%"></i></div>
-      <div class="calc-stage"><p class="eb">Stage</p><p class="calc-s" data-calc-s>Brooding</p></div>
-      <dl class="calc-dates"><div><dt>12 weeks</dt><dd data-calc-12>—</dd></div><div><dt>16 weeks</dt><dd data-calc-16>—</dd></div></dl>
-    </div>
-  </div>
-</section>
-
-<section class="pair">
-  ${pic(root, 'c-trays', 'Blue and red setter trays full of eggs', 'Setter trays, from the farm’s photos', { cls: 'pair-a' })}
-  <div class="pair-t"><h2 class="h2" data-split>Raised with <em>the upmost care.</em></h2><p data-reveal>That is how the farm puts it. Every stage above is something you can ask about when you call: how old the birds are, how long they have been in the flight pen, and when the next group is ready.</p>${btn('../contact/', 'Ask about the next group', 'btn-ink')}</div>
-  ${pic(root, 'c-hatcher', 'Inside a cabinet incubator', 'Cabinet incubator', { cls: 'pair-b' })}
-</section>`;
-  return page({ root, path: 'process/', id: 'process', title: 'Our process · B & T Quail Farm', desc: 'From setter trays to flight-ready birds: the hatch-to-field path for bobwhite quail, with an age calculator.', body });
-}
-
-/* ---------------- GALLERY ---------------- */
-const GAL = [
-  ['cover', 'Brand', 'The farm’s Facebook cover art', 'Cover art · “Raising quality”', 'wide'],
-  ['hand-head', 'Birds', 'Close-up of a quail’s head, held in a hand', 'Head check', ''],
-  ['trays', 'Hatchery', 'Blue and red setter trays full of eggs', 'Setter trays', ''],
-  ['hand-wing', 'Birds', 'A quail held with one wing spread', 'Wing spread', 'tall'],
-  ['hatcher-video', 'Hatchery', 'Still from the Oct 16, 2026 hatcher video', 'Hatcher video, Oct 16, 2026', 'wide'],
-  ['hand-profile', 'Birds', 'A bobwhite quail held upright beside a building', 'Held upright', ''],
-  ['trays-2', 'Hatchery', 'Rows of egg trays', 'Trays in rows', ''],
-  ['hand-wing-2', 'Birds', 'A quail held outdoors, wing spread', 'Outdoors, wing check', ''],
-  ['hatcher', 'Hatchery', 'Inside a cabinet incubator with racks of trays', 'Cabinet incubator', 'tall'],
-  ['egg-flats', 'Hatchery', 'Egg flats stacked on a table by a window', 'Egg flats', ''],
-  ['thanks-50k', 'Brand', 'The farm’s 50,000-follower thank-you graphic', '50,000 followers', ''],
-];
-function gallery() {
-  const root = '../';
-  const body = `
-${pageHead({ n: '03', label: 'Gallery', title: 'From the <em>farm</em>', lead: 'Photos and artwork from the farm’s Facebook page. Switch between field prints and the original color.' })}
-<section class="gal" data-gal>
-  <div class="gal-bar">
-    <div class="seg" role="group" aria-label="Filter">${['All', 'Birds', 'Hatchery', 'Brand'].map((t, i) => `<button type="button" aria-pressed="${i === 0}" data-filter="${t}">${t}<sup>${t === 'All' ? GAL.length : GAL.filter(g => g[1] === t).length}</sup></button>`).join('')}</div>
-    <label class="tog"><input type="checkbox" data-tone><span class="tog-t">Original color</span><span class="tog-s" aria-hidden="true"></span></label>
-  </div>
-  <ul class="gal-g" data-gal-g>
-    ${GAL.map(([n, cat, alt, cap, sz], i) => {
-      const p = n === 'cover' ? 'cover' : `p-${n}`, c = n === 'cover' ? 'cover' : `c-${n}`;
-      return `<li class="gi gi-${sz || 'sq'}" data-cat="${cat}"><button type="button" class="gi-b" data-lb="${i}" data-cursor="View" aria-label="Open: ${esc(cap)}"><span class="gi-im" data-wipe>${img(root, p, alt, 'gi-p')}${n === 'cover' ? '' : img(root, c, alt, 'gi-c')}</span><span class="gi-cap"><span>${String(i + 1).padStart(2, '0')}</span>${cap}</span></button></li>`;
-    }).join('')}
-  </ul>
-  <p class="gal-note">The original photos on Facebook are small. They are shown here at a size that keeps them sharp.</p>
-</section>
-<div class="lb" data-lbox role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
-  <button class="lb-x" type="button" data-lb-x aria-label="Close">${use('i-x', 'i')}</button>
-  <figure class="lb-f"><div class="lb-im"><img alt="" data-lb-img></div><figcaption><span data-lb-n></span><span data-lb-cap></span></figcaption></figure>
-  <button class="lb-n lb-prev" type="button" data-lb-prev aria-label="Previous photo">${use('i-arr', 'i')}</button>
-  <button class="lb-n lb-next" type="button" data-lb-next aria-label="Next photo">${use('i-arr', 'i')}</button>
-</div>
-<script type="application/json" id="gal-data">${JSON.stringify(GAL.map(([n, cat, alt, cap]) => ({ p: n === 'cover' ? 'cover' : 'p-' + n, c: n === 'cover' ? 'cover' : 'c-' + n, alt, cap })))}</script>`;
-  return page({ root, path: 'gallery/', id: 'gallery', title: 'Gallery · B & T Quail Farm', desc: 'Birds, setter trays and hatchers: photos from the B & T Quail Farm Facebook page.', body });
-}
-
 /* ---------------- ABOUT ---------------- */
 function about() {
   const root = '../';
   const body = `
-${pageHead({ n: '04', label: 'About', title: 'Ethan <em>&amp;</em> Trevor', lead: 'B &amp; T Quail Farm hatches and raises flight-ready quail in Putnam County, Indiana. The badge says Est. 2026.' })}
+${pageHead({ n: '02', label: 'About', title: 'Ethan <em>&amp;</em> Trevor', lead: 'B &amp; T Quail Farm hatches and raises flight-ready quail in Putnam County, Indiana. Established 2026.' })}
 
 <section class="ab">
   <div class="ab-badge" data-spin aria-hidden="true"><svg><use href="#badge"/></svg></div>
@@ -324,22 +228,28 @@ ${pageHead({ n: '04', label: 'About', title: 'Ethan <em>&amp;</em> Trevor', lead
 <section class="nums">
   <div class="num" data-reveal><span class="num-v" data-to="56" data-suf="K">56K</span><span class="num-l">Facebook followers</span></div>
   <div class="num" data-reveal><span class="num-v" data-to="4300" data-sep>4,300</span><span class="num-l">eggs to the hatchers on Oct 16, 2026</span></div>
-  <div class="num" data-reveal><span class="num-v">2026</span><span class="num-l">established, per the badge</span></div>
+  <div class="num" data-reveal><span class="num-v">2026</span><span class="num-l">established</span></div>
   <div class="num" data-reveal><span class="num-v" data-to="2">2</span><span class="num-l">people to call or text</span></div>
 </section>
 
 <section class="vals">
-  <div class="sec-h">${eb('What the seal says')}<h2 class="h2" data-split>Three words on the cover.</h2></div>
+  <div class="sec-h">${eb('On the seal')}<h2 class="h2" data-split>Healthy birds. Strong starts.</h2></div>
   <ol class="vals-l">
-    <li data-reveal><span class="vals-n">I</span><h3>Healthy birds</h3><p>The first words on the farm’s seal. Indiana also allows only healthy bobwhite to be released.</p></li>
-    <li data-reveal><span class="vals-n">II</span><h3>Raised with care</h3><p>“Hatched and raised with the upmost care,” in the farm’s own words.</p></li>
-    <li data-reveal><span class="vals-n">III</span><h3>Strong starts</h3><p>Setter trays, cabinet incubators and hatchers, all shown in the farm’s photos.</p></li>
+    <li data-reveal><span class="vals-n">I</span><h3>Healthy birds</h3><p>Healthy stock from the egg up. Indiana allows only healthy bobwhite to be released.</p></li>
+    <li data-reveal><span class="vals-n">II</span><h3>Raised with care</h3><p>Hatched and raised with the utmost care, from setter trays to the flight pen.</p></li>
+    <li data-reveal><span class="vals-n">III</span><h3>Strong starts</h3><p>Setter trays, a cabinet incubator and hatchers on site, and birds raised to be flight ready.</p></li>
   </ol>
 </section>
 
 <section class="thanks">
-  ${pic(root, 'c-thanks-50k', 'The farm’s thank-you graphic for 50,000 Facebook followers', 'The farm’s thank-you post for 50,000 followers', { cls: 'thanks-p' })}
+  ${pic(root, 'c-thanks-50k', 'The farm’s thank-you graphic for 50,000 Facebook followers', 'Thank you for 50,000 followers', { cls: 'thanks-p' })}
   <div class="thanks-t">${eb('Seen around')}<h2 class="h3">Listed with Indiana game bird sources.</h2><p>Crooked Creek Gun Club lists B&amp;T Quail Farm under “Places for game birds” on its news page.</p>${src('ccgc', 'See the list')}</div>
+</section>
+
+<section class="pair">
+  ${pic(root, 'c-trays', 'Blue and red setter trays full of eggs', 'Setter trays', { cls: 'pair-a' })}
+  <div class="pair-t"><h2 class="h2" data-split>Raised with <em>the utmost care.</em></h2><p data-reveal>Every stage is something you can ask about when you call: how old the birds are, how long they have been in the flight pen, and when the next group is ready.</p>${btn('../contact/', 'Ask about the next group', 'btn-ink')}</div>
+  ${pic(root, 'c-hatcher', 'Inside a cabinet incubator with racks of trays', 'Cabinet incubator', { cls: 'pair-b' })}
 </section>
 
 <section class="talk">
@@ -351,14 +261,13 @@ ${pageHead({ n: '04', label: 'About', title: 'Ethan <em>&amp;</em> Trevor', lead
 
 /* ---------------- CONTACT ---------------- */
 const FAQ = [
-  ['How much are the birds?', 'Prices are not published online. Text with how many birds you need and when, and ask for current pricing.'],
-  ['Are birds available right now?', 'Availability isn’t posted. The farm’s Oct 16, 2026 post said 4,300 eggs had just moved to the hatchers, so ask what is ready and what is coming.'],
-  ['What kind of quail are they?', 'The birds in the farm’s photos are bobwhite quail. Ask about anything more specific.'],
+  ['How much are the birds?', 'Call or text for current pricing. Let Ethan or Trevor know how many birds you need and when.'],
+  ['Are birds available right now?', 'Call or text for current availability. On Oct 16, 2026, 4,300 eggs moved to the hatchers, so ask what is ready now and what is coming.'],
+  ['What kind of quail are they?', 'Bobwhite quail. Call or text with any questions about the birds.'],
   ['What does “flight ready” mean?', `Birds that have spent time in flight pens building strength, usually 12 to 16 weeks old. ${src('gundog', 'Gun Dog')} · ${src('ext', 'Extension.org')}`],
-  ['Where is the farm?', 'Putnam County, Indiana. No street address is published, so set up pickup by phone or text.'],
+  ['Where is the farm?', 'Putnam County, Indiana. Call or text to set up a pickup time.'],
   ['Do I need a permit to train dogs on these birds in Indiana?', `To take pen-raised bobwhite while training on your own ground, Indiana requires a Dog Training Ground Permit, with banded birds and a bill of sale. ${src('dtg', '312 IAC 9-10-16')}`],
   ['Can I release quail on my land?', `Indiana allows release of healthy bobwhite on property where you have permission. Holding birds more than five days needs a game breeder license. ${src('dnrGB', 'Indiana DNR')}`],
-  ['Does this page send my message?', 'No. It opens your phone’s texting app with the message written out. You read it and hit send yourself.'],
 ];
 export const faq = (list) => `<div class="faq">${list.map(([q, a], i) => `<details class="fq"${i === 0 ? ' open' : ''}><summary><span>${q}</span><span class="fq-i" aria-hidden="true">${use('i-plus', 'i')}</span></summary><div class="fq-a"><p>${a}</p></div></details>`).join('')}</div>`;
 function contact() {
@@ -366,7 +275,7 @@ function contact() {
   const chips = (name, opts, def) => opts.map(([v, t]) => `<label class="opt"><input type="radio" name="${name}" value="${v}"${v === def ? ' checked' : ''}><span>${t}</span></label>`).join('');
   const months = (() => { const out = []; const d = new Date(2026, 10, 1); for (let i = 0; i < 12; i++) { const m = new Date(d.getFullYear(), d.getMonth() + i, 1); out.push(m.toLocaleString('en-US', { month: 'long', year: 'numeric' })); } return out; })();
   const body = `
-${pageHead({ n: '05', label: 'Contact', title: 'Bird <em>inquiry</em>', lead: 'Answer a few questions and your text is written for you. Send it to Ethan or Trevor from your own phone.' })}
+${pageHead({ n: '03', label: 'Contact', title: 'Bird <em>inquiry</em>', lead: 'Answer a few questions and your text to Ethan or Trevor is ready to send.' })}
 
 <section class="iq" data-iq>
   <form class="iq-f" data-iq-form novalidate>
@@ -410,7 +319,6 @@ ${pageHead({ n: '05', label: 'Contact', title: 'Bird <em>inquiry</em>', lead: 'A
         <a class="btn btn-line" href="${telHref(ETHAN)}" data-tel data-magnetic><span class="btn-t" data-roll>Call instead</span><span class="btn-o" aria-hidden="true">${use('i-phone', 'i')}</span></a>
         <button class="btn-txt" type="button" data-copy>${use('i-copy', 'i')}<span data-copy-t>Copy text</span></button>
       </div>
-      <p class="note-f">Opens your messages app. Nothing is sent until you press send.</p>
     </div>
   </aside>
 </section>
@@ -441,4 +349,4 @@ function notFound() {
   return page({ root, path: '404.html', id: 'nf', title: 'Page not found · B & T Quail Farm', desc: 'This page flushed.', body });
 }
 
-export const PAGES = { 'index.html': home, 'birds/index.html': birds, 'process/index.html': process, 'gallery/index.html': gallery, 'about/index.html': about, 'contact/index.html': contact, '404.html': notFound };
+export const PAGES = { 'index.html': home, 'birds/index.html': birds, 'about/index.html': about, 'contact/index.html': contact, '404.html': notFound };

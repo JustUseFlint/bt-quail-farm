@@ -65,35 +65,23 @@
   mbtn && mbtn.addEventListener('click', () => setMenu(menu.hidden));
   d.addEventListener('keydown', e => { if (e.key === 'Escape') { if (!menu.hidden) { setMenu(false); mbtn.focus(); } if (!pop.hidden) setPop(false); } });
 
-  /* ---------- page transitions: tall grass ---------- */
-  const sweep = $('.sweep'), blades = $$('.sweep-b i'), sBadge = $('.sweep-badge');
-  const order = blades.map((b, i) => Math.abs(i - (blades.length - 1) / 2));
-  if (G) G.set(blades, { y: 0, yPercent: H.classList.contains('pt-in') ? -8 : 105 });
-  if (motion && H.classList.contains('pt-in')) {
-    try { sessionStorage.removeItem('bt-pt'); } catch (e) {}
-    G.set(sweep, { visibility: 'visible' });
-    G.timeline({ onComplete: () => { H.classList.remove('pt-in'); G.set(sweep, { visibility: 'hidden' }); } })
-      .to(sBadge, { opacity: 0, scale: .8, duration: .3 }, .05)
-      .to(blades, { yPercent: -112, duration: .9, ease: 'expo.inOut', stagger: i => order[i] * .035 }, .1);
-  }
+  /* ---------- page transitions ----------
+     Browsers with cross-document View Transitions get them from CSS (@view-transition).
+     Everyone else: the page content fades and lifts out (260ms), then the next page fades up (CSS, .pt-in). */
+  const nativeVT = 'onpagereveal' in w && !!(w.CSS && CSS.supports && CSS.supports('view-transition-name: a'));
   let leaving = false;
   const internal = a => a.origin === location.origin && !a.hasAttribute('download') && a.target !== '_blank' && !/^(tel|sms|mailto):/.test(a.protocol) && !(a.pathname === location.pathname && a.hash);
-  d.addEventListener('click', e => {
-    const a = e.target.closest('a'); if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
-    if (!internal(a) || !motion) return;
-    if (leaving) { e.preventDefault(); return; }
-    e.preventDefault(); const href = a.href; leaving = true;
-    setTimeout(() => { if (leaving) location.href = href; }, 1600); // never get stuck behind the sweep
-    if (!menu.hidden) H.classList.remove('is-menu');
-    G.set(sweep, { visibility: 'visible' }); G.set(blades, { yPercent: 105 }); G.set(sBadge, { opacity: 0, scale: .8, rotate: -30 });
-    G.timeline({ onComplete: () => { try { sessionStorage.setItem('bt-pt', '1'); } catch (e) {} location.href = href; } })
-      .to(blades, { yPercent: -8, duration: .62, ease: 'expo.inOut', stagger: i => (order.length / 2 - order[i]) * .025 })
-      .to(sBadge, { opacity: 1, scale: 1, rotate: 0, duration: .45, ease: 'back.out(2)' }, '-=.3');
+  if (motion && !nativeVT) d.addEventListener('click', e => {
+    const a = e.target.closest('a'); if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+    if (!internal(a)) return;
+    e.preventDefault(); const href = a.href; if (leaving) return; leaving = true;
+    try { sessionStorage.setItem('bt-pt', '1'); } catch (x) {}
+    H.classList.add('is-leaving');
+    setTimeout(() => { location.href = href; }, 260);
   });
-  const resetSweep = () => { H.classList.remove('pt-in'); if (G) { G.killTweensOf(blades); G.set(blades, { yPercent: 105 }); G.set(sBadge, { opacity: 0 }); G.set(sweep, { visibility: 'hidden' }); } try { sessionStorage.removeItem('bt-pt'); } catch (e) {} leaving = false; };
-  w.addEventListener('pageshow', e => { if (e.persisted) resetSweep(); });
-  w.addEventListener('pagehide', () => { try { if (!leaving) sessionStorage.removeItem('bt-pt'); } catch (e) {} });
-  setTimeout(() => { if (H.classList.contains('pt-in')) resetSweep(); }, 3000);
+  try { sessionStorage.removeItem('bt-pt'); } catch (x) {}
+  setTimeout(() => H.classList.remove('pt-in'), 900);
+  w.addEventListener('pageshow', e => { if (e.persisted) { leaving = false; H.classList.remove('is-leaving', 'pt-in'); if (menu && !menu.hidden) { menu.hidden = true; H.classList.remove('is-menu'); mbtn.setAttribute('aria-expanded', false); lock(false); } if (pop && !pop.hidden) setPop(false); } });
 
   /* ---------- text splitting ---------- */
   const splitLines = el => {
@@ -182,7 +170,7 @@
   if (hero) {
     const win = $('[data-hero-win]', hero), seal = $('[data-seal]', hero), img = $('.hero-img img', hero);
     if (motion) {
-      const tl = G.timeline({ delay: H.classList.contains('pt-in') ? .55 : .15 });
+      const tl = G.timeline({ delay: .15 });
       tl.to(win, { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: 1.5, ease: 'expo.inOut' }, 0)
         .from(img, { scale: 1.35, duration: 2.2, ease: 'expo.out' }, .1)
         .to('[data-hero-k]', { opacity: 1, duration: .8 }, .5)
@@ -295,62 +283,6 @@
     if (h) setTimeout(() => { const y = tabs.getBoundingClientRect().top + w.scrollY - 100; lenis ? lenis.scrollTo(y, { immediate: true }) : w.scrollTo(0, y); }, 60);
   }
   $$('[data-ck]').forEach(c => { const k = 'bt-ck-' + c.dataset.ck; try { c.checked = localStorage.getItem(k) === '1'; } catch (e) {} c.addEventListener('change', () => { try { localStorage.setItem(k, c.checked ? '1' : '0'); } catch (e) {} }); });
-
-  /* ---------- PROCESS timeline ---------- */
-  const tlS = $('[data-tl]');
-  if (tlS && motion) {
-    const mm = G.matchMedia();
-    mm.add('(min-width: 900px) and (hover: hover) and (pointer: fine)', () => {
-      const track = $('[data-tl-track]', tlS), fill = $('[data-tl-fill]', tlS), pin = $('.tl-pin', tlS);
-      const dist = () => track.scrollWidth - w.innerWidth;
-      const tw = G.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: pin, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: .7, invalidateOnRefresh: true } });
-      G.to(fill, { width: '100%', ease: 'none', scrollTrigger: { trigger: pin, start: 'top top', end: () => '+=' + dist(), scrub: true } });
-      $$('.tl-im img', tlS).forEach(im => G.fromTo(im, { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: im, containerAnimation: tw, start: 'left right', end: 'right left', scrub: true } }));
-    });
-    mm.add('(max-width: 899px), (hover: none), (pointer: coarse)', () => {
-      $$('.tl-c', tlS).forEach(c => track(c, G.fromTo(c, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .8, ease: 'expo.out', scrollTrigger: { trigger: c, start: 'top 90%', once: true } })));
-    });
-  }
-  const calc = $('[data-calc]');
-  if (calc) {
-    const inp = $('[data-calc-in]', calc), fmt = dt => dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    const S = [[0, 'Just hatched'], [1, 'Brooding'], [42, 'In the flight pen'], [84, 'Flight ready (12 weeks +)'], [112, 'Mature (16 weeks +)']];
-    const run = () => {
-      const v = inp.value; if (!v) return; const [y, m, dd] = v.split('-').map(Number); const h = new Date(y, m - 1, dd);
-      const now = new Date(); now.setHours(0, 0, 0, 0); const days = Math.round((now - h) / 864e5);
-      const add = n => { const x = new Date(h); x.setDate(x.getDate() + n); return x; };
-      $('[data-calc-12]', calc).textContent = fmt(add(84)); $('[data-calc-16]', calc).textContent = fmt(add(112));
-      if (days < 0) { $('[data-calc-w]', calc).textContent = '0'; $('[data-calc-d]', calc).textContent = `Hatches in ${-days} day${days === -1 ? '' : 's'}`; $('[data-calc-s]', calc).textContent = 'Still in the egg'; $('[data-calc-bar]', calc).style.width = '0%'; return; }
-      const wk = Math.floor(days / 7); $('[data-calc-w]', calc).textContent = wk; $('.calc-u', calc).textContent = wk === 1 ? 'week old' : 'weeks old';
-      $('[data-calc-d]', calc).textContent = `${days} day${days === 1 ? '' : 's'} since hatch`;
-      let st = S[0][1]; S.forEach(([n, t]) => { if (days >= n) st = t; }); $('[data-calc-s]', calc).textContent = st;
-      $('[data-calc-bar]', calc).style.width = Math.min(100, (days + 23) / 135 * 100) + '%';
-    };
-    inp.addEventListener('input', run); run();
-  }
-
-  /* ---------- GALLERY ---------- */
-  const gal = $('[data-gal]');
-  if (gal) {
-    const items = $$('.gi', gal), data = JSON.parse($('#gal-data').textContent), root = d.querySelector('link[rel=stylesheet][href*="site.css"]').getAttribute('href').replace('assets/css/site.css', '');
-    $$('[data-filter]', gal).forEach(b => b.addEventListener('click', () => {
-      $$('[data-filter]', gal).forEach(x => x.setAttribute('aria-pressed', x === b)); const f = b.dataset.filter;
-      items.forEach(it => { const show = f === 'All' || it.dataset.cat === f; it.hidden = !show; });
-      if (motion) G.fromTo(items.filter(i => !i.hidden), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: 'expo.out', stagger: .04 });
-      ST && ST.refresh();
-    }));
-    const tone = $('[data-tone]', gal); const setTone = () => gal.classList.toggle('is-color', tone.checked); tone.addEventListener('change', setTone);
-    const lb = $('[data-lbox]'), li = $('[data-lb-img]', lb); let at = 0, opener = null;
-    const show = i => { at = (i + data.length) % data.length; const x = data[at]; li.src = `${root}assets/img/${tone.checked ? x.c : x.p}.webp`; li.alt = x.alt; $('[data-lb-n]', lb).textContent = String(at + 1).padStart(2, '0') + ' / ' + data.length; $('[data-lb-cap]', lb).textContent = x.cap; if (motion) G.fromTo('.lb-im', { opacity: 0, scale: .96 }, { opacity: 1, scale: 1, duration: .5, ease: 'expo.out' }); };
-    const open = (i, el) => { opener = el; lb.hidden = false; lock(true); show(i); $('[data-lb-x]', lb).focus(); };
-    const close = () => { lb.hidden = true; lock(false); opener && opener.focus(); };
-    $$('[data-lb]', gal).forEach(b => b.addEventListener('click', () => open(+b.dataset.lb, b)));
-    $('[data-lb-x]', lb).addEventListener('click', close);
-    $('[data-lb-prev]', lb).addEventListener('click', () => show(at - 1)); $('[data-lb-next]', lb).addEventListener('click', () => show(at + 1));
-    lb.addEventListener('click', e => { if (e.target === lb) close(); });
-    d.addEventListener('keydown', e => { if (lb.hidden) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowRight') show(at + 1); if (e.key === 'ArrowLeft') show(at - 1); if (e.key === 'Tab') { const f = $$('button', lb); const i = f.indexOf(d.activeElement); if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); } else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); } } });
-    let tx = 0; lb.addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true }); lb.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) show(at + (dx < 0 ? 1 : -1)); });
-  }
 
   /* ---------- ABOUT ---------- */
   if (motion) $$('[data-spin]').forEach(b => G.fromTo(b, { rotate: -25 }, { rotate: 25, ease: 'none', scrollTrigger: { trigger: b, start: 'top bottom', end: 'bottom top', scrub: true } }));
