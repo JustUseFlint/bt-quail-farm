@@ -75,7 +75,7 @@ export function head({ root, title, desc, path = '' }) {
 <link rel="icon" href="${root}assets/img/favicon.png" type="image/png"><link rel="apple-touch-icon" href="${root}assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${FONTS}">
-<link rel="stylesheet" href="${root}assets/css/site.css">
+<link rel="stylesheet" href="${root}assets/css/site.css?v=20261109b">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"B & T Quail Farm","description":"Flight ready quail for dog training or population purposes.","telephone":"+1-765-246-1964","areaServed":"Putnam County, Indiana","address":{"@type":"PostalAddress","addressRegion":"IN","addressCountry":"US"},"sameAs":["${FB}"]}</script>
 <script>(function(d,w){var h=d.documentElement;h.className=h.className.replace('no-js','js');var rm=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!rm){h.classList.add('motion');try{if(sessionStorage.getItem('bt-pt')==='1')h.classList.add('pt-in')}catch(e){}}else{h.classList.add('no-motion')}setTimeout(function(){if(!w.__btReady){h.classList.remove('motion','pt-in');h.classList.add('no-motion')}},4500)})(document,window)</script>
 </head>`;
@@ -147,7 +147,7 @@ ${footer(root)}
 <script src="${root}assets/vendor/MotionPathPlugin.min.js" defer></script>
 <script src="${root}assets/vendor/DrawSVGPlugin.min.js" defer></script>
 <script src="${root}assets/vendor/lenis.min.js" defer></script>
-<script src="${root}assets/js/site.js" defer></script>
+<script src="${root}assets/js/site.js?v=20261109b" defer></script>
 </body>
 </html>
 `;
