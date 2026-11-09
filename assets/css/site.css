@@ -573,7 +573,7 @@ a:hover>[data-roll] .rl-2,button:hover>[data-roll] .rl-2,a:hover [data-roll] .rl
   .hero-win{aspect-ratio:auto;height:calc(100svh - var(--bar-h) - 150px);min-height:560px;max-height:900px;border-radius:50vw 50vw 28px 28px / 15vw 15vw 28px 28px}
   .hero-img img{object-position:right 28%}
   .hero-haze{background:linear-gradient(90deg,rgba(239,228,207,.42) 0%,rgba(239,228,207,.18) 40%,rgba(239,228,207,0) 60%),linear-gradient(180deg,rgba(42,31,22,0) 60%,rgba(42,31,22,.35) 100%)}
-  .hero-copy{position:absolute;left:clamp(40px,6vw,110px);top:50%;transform:translateY(-54%);max-width:min(54vw,760px);padding:0}
+  .hero-copy{position:absolute;left:clamp(40px,6vw,110px);top:50%;transform:translateY(-50%);max-width:min(54vw,760px);padding:0}
   .hero-h{font-size:clamp(64px,7.6vw,138px)}
   .hero-sub{font-size:20px;max-width:30ch}
   .seal{width:clamp(130px,12vw,200px);right:clamp(30px,5vw,90px);bottom:clamp(40px,10%,110px)}
