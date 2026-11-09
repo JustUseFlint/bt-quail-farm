@@ -9,10 +9,10 @@
   --bar-h:64px;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:90px}
+html{overflow-x:hidden;overscroll-behavior-x:none;-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:90px}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
-body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--slab);-webkit-font-smoothing:antialiased;overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--slab);-webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip;overscroll-behavior-x:none;position:relative}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.33;mix-blend-mode:multiply;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .15 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
@@ -113,7 +113,7 @@ a:hover>[data-roll] .rl-2,button:hover>[data-roll] .rl-2,a:hover [data-roll] .rl
 .menu-grass{display:block;width:100%;height:90px;color:var(--ink);margin-top:24px;flex:none}
 
 /* page transition: tall grass */
-.sweep{position:fixed;inset:0;z-index:150;pointer-events:none;visibility:hidden}
+.sweep{position:fixed;inset:0;z-index:150;pointer-events:none;visibility:hidden;overflow:hidden;contain:strict}
 .sweep-b{position:absolute;inset:0;display:flex}
 .sweep-b i{flex:1;margin:0 -10px;height:125%;background:var(--ink);clip-path:polygon(0 24%,58% 0,100% 20%,100% 100%,0 100%)}
 .sweep-b i:nth-child(2n){clip-path:polygon(0 18%,30% 0,100% 26%,100% 100%,0 100%)}
@@ -160,7 +160,7 @@ a:hover>[data-roll] .rl-2,button:hover>[data-roll] .rl-2,a:hover [data-roll] .rl
 .intro{padding:clamp(90px,14vw,180px) var(--pad);display:grid;gap:22px;max-width:var(--max);margin:0 auto}
 .intro-src{margin:0;font:400 14px/1.4 var(--sans);color:var(--sepia)}
 .intro-q{font:500 clamp(26px,5.4vw,58px)/1.16 var(--slab);letter-spacing:-.012em;margin:0;text-wrap:pretty}
-.intro-q .w{color:rgba(42,31,22,.2);transition:none}
+.intro-q .w{transition:none}
 .no-motion .intro-q .w,.no-js .intro-q .w{color:inherit}
 .intro-ppl{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
 .tag{display:inline-flex;gap:10px;align-items:center;height:50px;padding:0 20px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--ink);font:500 16px/1 var(--sans);transition:background .3s,color .3s}
@@ -213,7 +213,7 @@ a:hover>[data-roll] .rl-2,button:hover>[data-roll] .rl-2,a:hover [data-roll] .rl
 
 /* ============ contact sheet rail ============ */
 .sheet{padding:0 0 clamp(90px,12vw,170px)}
-.rail{display:flex;gap:16px;overflow-x:auto;padding:6px var(--pad) 24px;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab;overscroll-behavior-x:contain}
+.rail{display:flex;gap:16px;overflow-x:auto;padding:6px var(--pad) 24px;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab;overscroll-behavior-x:contain;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch}
 .rail::-webkit-scrollbar{display:none}
 .rail.is-drag{cursor:grabbing;scroll-snap-type:none}
 .rail.is-drag *{pointer-events:none}
@@ -385,7 +385,7 @@ a:hover>[data-roll] .rl-2,button:hover>[data-roll] .rl-2,a:hover [data-roll] .rl
 .lb[hidden]{display:none}
 .lb-f{margin:0;display:grid;gap:14px;justify-items:center;max-width:min(92vw,980px)}
 .lb-im{background:var(--paper-3);padding:10px;border-radius:6px}
-.lb-im img{max-height:68vh;width:auto;max-width:100%;border-radius:2px}
+.lb-im img{max-height:68vh;max-height:68dvh;width:auto;max-width:100%;border-radius:2px}
 .lb-f figcaption{display:flex;gap:12px;color:var(--cream);font:600 14px/1.2 var(--cond);letter-spacing:.14em;text-transform:uppercase}
 .lb-f figcaption span:first-child{color:var(--tan)}
 .lb-x,.lb-n{position:absolute;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--cream);color:var(--ink)}
@@ -399,7 +399,7 @@ a:hover>[data-roll] .rl-2,button:hover>[data-roll] .rl-2,a:hover [data-roll] .rl
 .ab-badge{width:min(70vw,360px);aspect-ratio:1;justify-self:center}
 .ab-badge svg{width:100%;height:100%;filter:drop-shadow(0 24px 40px rgba(42,31,22,.3))}
 .ab-big{font:500 clamp(26px,4.6vw,52px)/1.18 var(--slab);margin:0;letter-spacing:-.012em}
-.ab-big .w{color:rgba(42,31,22,.2)}
+
 .no-motion .ab-big .w{color:inherit}
 .nums{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:0 var(--pad) clamp(80px,10vw,140px);border-top:1px solid var(--line-2)}
 .num{padding:24px 12px 26px 0;border-bottom:1px solid var(--line);display:grid;gap:8px;align-content:start}
@@ -486,7 +486,7 @@ a:hover>[data-roll] .rl-2,button:hover>[data-roll] .rl-2,a:hover [data-roll] .rl
 .nf-h em{color:var(--rust)}
 .nf-p{max-width:40ch;margin:0;font-size:19px}
 .nf-a{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
-.nf-bird{position:absolute;right:8%;top:22%;width:140px;height:96px;color:var(--ink);--stripe:var(--paper)}
+.nf-bird{position:absolute;max-width:40%;right:8%;top:22%;width:140px;height:96px;color:var(--ink);--stripe:var(--paper)}
 .nf-bird svg{position:absolute;inset:0;width:100%;height:100%}
 .nf-bird .bird-d{opacity:0}
 .nf-bird.flap .bird-u{opacity:0}.nf-bird.flap .bird-d{opacity:1}
@@ -650,3 +650,24 @@ a:hover>[data-roll] .rl-2,button:hover>[data-roll] .rl-2,a:hover [data-roll] .rl
 
 /* split masks: leave room for descenders */
 .wd-mask,.ln-mask{padding-bottom:.14em;margin-bottom:-.14em}
+
+/* ===== mobile hardening ===== */
+/* every full-width band clips its own horizontal overflow (animated grass, scaled images, offsets) */
+main>section,.hero,.ph,.ft{overflow-x:hidden;overflow-x:clip}
+@supports (overflow:clip){main>section,.hero,.ph,.ft{overflow-y:visible}}
+.grass,.ft-grass,.hero-grass{max-width:100%}
+/* touch devices: no full-screen blend layer, no backdrop blur (both repaint on every scroll frame in iOS Safari) */
+.is-touch body::after{display:none}
+.is-touch .bar.is-solid{background:rgba(239,228,207,.97);-webkit-backdrop-filter:none;backdrop-filter:none}
+.is-touch .cursor{display:none}
+@media (hover:none),(pointer:coarse){body::after{display:none}.cursor{display:none}}
+/* if a transition never completes, the sweep hides itself */
+.pt-in .sweep{animation:pt-safe 0s 2.8s forwards}
+@keyframes pt-safe{to{visibility:hidden}}
+/* if JS stalls before reveals are wired, content shows anyway */
+html.motion:not(.rv-ready) [data-split],html.motion:not(.rv-ready) [data-chars]{animation:rv-v 0s 3.5s forwards}
+html.motion:not(.rv-ready) [data-reveal]{animation:rv-o .6s 3.5s forwards}
+html.motion:not(.rv-ready) [data-wipe]{animation:rv-c .6s 3.5s forwards}
+@keyframes rv-v{to{visibility:visible}}
+@keyframes rv-o{to{opacity:1;transform:none}}
+@keyframes rv-c{to{clip-path:none}}
